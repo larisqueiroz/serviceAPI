@@ -1,0 +1,24 @@
+version: '3'
+
+services: 
+  web:
+    build: .
+    
+    ports:
+      - 5000:5000
+    depends_on: 
+      - postgres
+      - rabbitmq
+  
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+      
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    
+    ports:
+      - 5672:5672
+      - 15672:15672
+    
