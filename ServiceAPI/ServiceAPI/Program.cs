@@ -21,13 +21,15 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+builder.Services.AddSingleton<IRabbitMQClientService, RabbitMQClientService>();
+
+builder.Services.AddDbContext<ServiceAPIContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ServiceAPI")));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<ServiceAPIContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ServiceAPI")));
 
 var app = builder.Build();
 
