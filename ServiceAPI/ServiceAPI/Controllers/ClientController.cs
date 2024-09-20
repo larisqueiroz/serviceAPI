@@ -5,21 +5,21 @@ using ServiceAPI.Services.Interfaces;
 namespace ServiceAPI.Controllers;
 
 [ApiController]
-[Route("products/")]
-public class ProductController: ControllerBase
+[Route("clients/")]
+public class ClientController: ControllerBase
 {
-    private readonly IProductService _productService;
-    public ProductController(IProductService productService)
+    private readonly IClientService _clientService;
+    public ClientController(IClientService ClientService)
     {
-        _productService = productService;
+        _clientService = ClientService;
     }
 
     [HttpGet]
-    public ActionResult<List<ProductDto>> GetAll()
+    public ActionResult<List<ClientDto>> GetAll()
     {
         try
         {
-            return _productService.GetAll();
+            return _clientService.GetAll();
         }
         catch (Exception e)
         {
@@ -27,12 +27,12 @@ public class ProductController: ControllerBase
         }
     }
     
-    [HttpGet("by-id")]
-    public ActionResult<ProductDto> GetById([FromQuery] Guid id)
+    [HttpGet("by-code")]
+    public ActionResult<ClientDto> GetById([FromQuery] int code)
     {
         try
         {
-            return _productService.GetById(id);
+            return _clientService.GetByCode(code);
         }
         catch (Exception e)
         {
