@@ -40,11 +40,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ServiceAPI v1");
-        c.RoutePrefix = string.Empty; // Isso permite acessar o Swagger na raiz (localhost:5000/)
+        c.RoutePrefix = string.Empty;
     });
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
