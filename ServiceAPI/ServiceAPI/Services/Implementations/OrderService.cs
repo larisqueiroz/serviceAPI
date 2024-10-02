@@ -39,8 +39,11 @@ public class OrderService: IOrderService
         try
         {
             var saved = _orderRepository.GetByCode(orderDto.Code);
+            var savedClient = _clientRepository.GetByCode(client);
+            if (savedClient is null)
+                _clientRepository.Save(new Client(){Code = client});
             if (saved is not null)
-                throw new BadHttpRequestException("Cliente já cadastrado");
+                throw new BadHttpRequestException("Pedido já cadastrado");
             var order = _mapper.Map<Order>(orderDto);
             order.Id = Guid.NewGuid();
             order.Client = _clientRepository.GetByCode(client);

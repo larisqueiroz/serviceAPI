@@ -22,6 +22,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddSingleton<IRabbitMQClientService, RabbitMQClientService>();
+builder.Services.AddHostedService<MessageHandlerService>();
 
 builder.Services.AddDbContext<ServiceAPIContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("ServiceAPI")));

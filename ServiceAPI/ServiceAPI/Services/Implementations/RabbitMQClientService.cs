@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -12,7 +13,8 @@ namespace ServiceAPI.Services.Implementations;
 
 public class RabbitMQClientService: IRabbitMQClientService
 {
-    public RabbitMQClientService()
+    public event EventHandler<MessageReceived>? RMqMessageReceivedHandler;
+    public void BuildConnection()
     {
         IConnection? connection = null;
         IModel? channel = null;
@@ -20,7 +22,7 @@ public class RabbitMQClientService: IRabbitMQClientService
         var factory = new ConnectionFactory
         {
             HostName = "localhost",
-            Port = 15672,
+            Port = 5672,
             UserName = "guest",
             Password = "guest",
             ClientProvidedName = "serviceAPI",
@@ -45,13 +47,16 @@ public class RabbitMQClientService: IRabbitMQClientService
             arguments: null);
 
         var consumer = new EventingBasicConsumer(channel);
+        var orderReceived = new MessageReceived();
         consumer.Received += (model, ea) =>
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
 
-            var order = JsonSerializer.Deserialize<MessageReceived>(message);
+            orderReceived = JsonSerializer.Deserialize<MessageReceived>(message);
             Console.WriteLine("[NOVO PEDIDO]: " + message);
+
+            RMqMessageReceivedHandler?.Invoke(this, orderReceived);
         };
 
         channel.BasicConsume(queue: "serviceAPI", autoAck: true, consumer: consumer);
