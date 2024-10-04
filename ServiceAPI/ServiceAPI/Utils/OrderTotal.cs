@@ -17,8 +17,12 @@ public class OrderTotal
     public string GetOrderPrice(int code)
     {
         var order = _orderService.GetByCode(code);
+        double totalPrice = 0;
 
-        var totalPrice = order.Itens.Sum(o => o.Price);
+        foreach (var item in order.Itens)
+        {
+            totalPrice += item.Price * item.Quantity;
+        }
 
         return "R$ " + totalPrice.ToString();
     }

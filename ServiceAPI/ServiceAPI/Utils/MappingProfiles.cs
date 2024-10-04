@@ -14,7 +14,7 @@ public class MappingProfiles: Profile
         CreateMap<Product, ProductDto>();
         CreateMap<ProductDto, Product>();
         
-        CreateMap<Order, OrderDto>();
+        CreateMap<Order, OrderDto>().ForMember(i => i.Itens, opt => opt.MapFrom(p => p.Itens));;
         CreateMap<OrderDto, Order>();
         
         CreateMap<ItemDto, ProductDto>().ForMember(i => i.Name, opt => opt.MapFrom(p => p.Produto))

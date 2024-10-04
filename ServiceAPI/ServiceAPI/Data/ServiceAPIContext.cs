@@ -7,7 +7,7 @@ public class ServiceAPIContext: DbContext
 {
     public ServiceAPIContext(DbContextOptions<ServiceAPIContext> options) : base(options)
     {
-        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
     
     public DbSet<Client> Clients { get; set; }

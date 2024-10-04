@@ -1,4 +1,6 @@
-﻿using ServiceAPI.Data;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ServiceAPI.Data;
 using ServiceAPI.Models.DAO;
 using ServiceAPI.Repositories.Interfaces;
 
@@ -15,22 +17,26 @@ public class OrderRepository: IOrderRepository
 
     public List<Order> GetAll()
     {
-        return _ctx.Orders.ToList();
+        return _ctx.Orders.Include(o => o.Client)
+            .Include(o => o.Itens).ToList();
     }
 
     public Order GetByCode(int code)
     {
-        return _ctx.Orders.FirstOrDefault(c => c.Code == code);
+        return _ctx.Orders.Include(o => o.Client)
+            .Include(o => o.Itens).FirstOrDefault(c => c.Code == code);
     }
 
     public Order GetByClient(int client, int orderCode)
     {
-        return _ctx.Orders.FirstOrDefault(o => o.Client.Code == client && o.Code == orderCode);
+        return _ctx.Orders.Include(o => o.Client)
+            .Include(o => o.Itens).FirstOrDefault(o => o.Client.Code == client && o.Code == orderCode);
     }
     
     public List<Order> GetAllByClient(int client)
     {
-        return _ctx.Orders.Where(o => o.Client.Code == client).ToList();
+        return _ctx.Orders.Include(o => o.Client)
+            .Include(o => o.Itens).Where(o => o.Client.Code == client).ToList();
     }
     
     public void Save(Order order)

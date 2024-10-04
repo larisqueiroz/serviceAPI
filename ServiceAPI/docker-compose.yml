@@ -12,11 +12,15 @@ services:
     depends_on: 
       - postgres
       - rabbitmq
+    networks:
+      - servicenetwork
   
   postgres:
     image: postgres
     environment:
       POSTGRES_PASSWORD: admin
+    networks:
+      - servicenetwork
       
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -28,4 +32,10 @@ services:
         interval: 30s
         timeout: 10s
         retries: 5
+    networks:
+      - servicenetwork
+
+networks:
+  servicenetwork:
+    driver: bridge
     
