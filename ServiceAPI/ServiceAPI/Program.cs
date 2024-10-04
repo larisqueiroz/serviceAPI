@@ -20,6 +20,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ITypeRepository, TypeRepository>();
+builder.Services.AddScoped<ITypeService, TypeService>();
 
 builder.Services.AddSingleton<IRabbitMQClientService, RabbitMQClientService>();
 builder.Services.AddHostedService<MessageHandlerService>();

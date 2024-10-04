@@ -21,7 +21,7 @@ public class OrderTotal
 
         foreach (var item in order.Itens)
         {
-            totalPrice += item.Price * item.Quantity;
+            totalPrice += item.Type.Price * item.Quantity;
         }
 
         return "R$ " + totalPrice.ToString();

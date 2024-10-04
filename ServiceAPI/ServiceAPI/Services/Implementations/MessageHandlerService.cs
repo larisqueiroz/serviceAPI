@@ -19,8 +19,7 @@ public class MessageHandlerService: IHostedService
         var scopedProcessingService = scope.ServiceProvider.GetRequiredService<IOrderService>();
         var map = scope.ServiceProvider.GetRequiredService<IMapper>();
         
-        var order = map.Map<MessageReceived,OrderDto>(message);
-        scopedProcessingService.SaveOrder(order, order.ClientCode);
+        scopedProcessingService.SaveOrder(message, message.CodigoCliente);
     }
     
     public Task StartAsync(CancellationToken cancellationToken)

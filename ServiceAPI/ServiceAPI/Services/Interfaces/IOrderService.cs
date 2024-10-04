@@ -7,5 +7,5 @@ public interface IOrderService
     List<OrderDto> GetAll();
     OrderDto GetByCode(int code);
     List<OrderDto> GetAllByClient(int client);
-    OrderDto SaveOrder(OrderDto orderDto, int client);
+    OrderDto SaveOrder(MessageReceived orderDto, int client);
 }

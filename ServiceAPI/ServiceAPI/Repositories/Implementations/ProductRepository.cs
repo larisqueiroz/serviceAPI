@@ -1,4 +1,5 @@
-﻿using ServiceAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ServiceAPI.Data;
 using ServiceAPI.Models.DAO;
 using ServiceAPI.Repositories.Interfaces;
 
@@ -15,12 +16,12 @@ public class ProductRepository: IProductRepository
 
     public List<Product> GetAll()
     {
-        return _ctx.Products.ToList();
+        return _ctx.Products.Include(p => p.Type).ToList();
     }
 
     public Product GetById(Guid id)
     {
-        return _ctx.Products.FirstOrDefault(c => c.Id == id);
+        return _ctx.Products.Include(p => p.Type).FirstOrDefault(c => c.Id == id);
     }
     
     public void Save(Product product)
