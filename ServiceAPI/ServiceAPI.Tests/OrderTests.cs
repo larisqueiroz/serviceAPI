@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using ServiceAPI.Models.DTO;
 using ServiceAPI.Services.Interfaces;
 using ServiceAPI.Utils;
@@ -14,7 +16,6 @@ public class OrderTests
     private readonly Mock<IClientService> _clientServiceMock;
     private readonly ITestOutputHelper _testOutputHelper;
     private OrderTotal orderTotal;
-    private readonly HttpClient _client;
 
     public OrderTests(ITestOutputHelper testOutputHelper)
     {
