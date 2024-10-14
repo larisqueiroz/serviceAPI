@@ -6,5 +6,4 @@ public class Client: Base
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Code { get; set; }
-    public string Name { get; set; }
 }
