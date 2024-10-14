@@ -30,5 +30,12 @@ to run this project which acts as the consumer. Also, clone and run the same com
 
 2. Access http://localhost:3500 to see the API.
 
+## Tests
+
+Inside serviceAPI\ServiceAPI\ServiceAPI.Tests, run:
+```
+dotnet test
+```
+
 ## Contact me
 https://www.linkedin.com/in/larissalimaqueiroz/
