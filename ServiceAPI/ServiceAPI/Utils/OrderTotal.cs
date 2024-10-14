@@ -24,7 +24,7 @@ public class OrderTotal
             totalPrice += item.Type.Price * item.Quantity;
         }
 
-        return "R$ " + totalPrice.ToString();
+        return "R$ " + String.Format("{0:F2}", totalPrice);
     }
 
     public string GetOrdersQuantity(int clientCode)
